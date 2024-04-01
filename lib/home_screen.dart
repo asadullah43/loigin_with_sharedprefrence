@@ -2,8 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:login_shared_prefrence/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String email = '', name = '';
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      email = sp.getString('email') ?? '';
+      name = sp.getString('name') ?? '';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +46,49 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
         title: const Text(
-          'HOME SCREEN',
+          'Home Screen',
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.pinkAccent,
       ),
-      body: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Center(child: Text('WELCOME'))],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Email:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  email.toString(),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Name:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  name.toString().toUpperCase(),
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

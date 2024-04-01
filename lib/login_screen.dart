@@ -17,7 +17,9 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Login',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.pinkAccent,
@@ -31,7 +33,16 @@ class _LoginScreenState extends State<LoginScreen> {
             TextFormField(
               controller: nameController,
               decoration: const InputDecoration(
-                hintText: 'Name',
+                labelText: 'Name',
+                hintText: 'Enter your name',
+                prefixIcon: Icon(Icons.account_box),
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red),
+                ),
               ),
             ),
             const SizedBox(
@@ -40,7 +51,16 @@ class _LoginScreenState extends State<LoginScreen> {
             TextFormField(
               controller: emailController,
               decoration: const InputDecoration(
-                hintText: 'Email',
+                labelText: 'Email',
+                hintText: 'Enter your email',
+                prefixIcon: Icon(Icons.email),
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red),
+                ),
               ),
             ),
             const SizedBox(
@@ -49,7 +69,16 @@ class _LoginScreenState extends State<LoginScreen> {
             TextFormField(
               controller: passwordController,
               decoration: const InputDecoration(
-                hintText: 'Password',
+                labelText: 'Passowrd',
+                hintText: 'Enter your password',
+                prefixIcon: Icon(Icons.lock),
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red),
+                ),
               ),
             ),
             const SizedBox(
@@ -59,19 +88,28 @@ class _LoginScreenState extends State<LoginScreen> {
               onTap: () async {
                 SharedPreferences sp = await SharedPreferences.getInstance();
                 sp.setString('email', emailController.text.toString());
-                sp.setString('Name', nameController.text.toString());
+
+                sp.setString('name', nameController.text.toString());
+
                 sp.setBool('isLogin', true);
                 Navigator.push(
-                    // ignore: use_build_context_synchronously
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HomeScreen()));
+                  // ignore: use_build_context_synchronously
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                );
               },
               child: Container(
                 height: 50,
                 width: double.infinity,
                 color: Colors.pink[200],
-                child: const Center(child: Text('log in')),
+                child: const Center(
+                    child: Text(
+                  'Log in',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white),
+                )),
               ),
             ),
           ],

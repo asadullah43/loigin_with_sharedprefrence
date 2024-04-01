@@ -16,17 +16,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    super.initState();
     isLogin();
+    super.initState();
   }
 
   void isLogin() async {
-  
     SharedPreferences sp = await SharedPreferences.getInstance();
     bool isLogin = sp.getBool('isLogin') ?? false;
     if (isLogin) {
       Timer(
-        const Duration(seconds: 3),
+        const Duration(seconds: 4),
         () {
           Navigator.push(
             context,
@@ -58,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
           height: double.infinity,
           fit: BoxFit.fitHeight,
           image: NetworkImage(
-            'https://images.pexels.com/photos/17531433/pexels-photo-17531433/free-photo-of-colorful-flowers-in-vase.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            'https://images.pexels.com/photos/7945944/pexels-photo-7945944.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
           )),
     );
   }
